@@ -4,8 +4,8 @@ app.controller("AppController", function($scope, $http) {
     
     $scope.formServicio = {radio: "EFECTIVO", reparar: false, garantia:false, mantenimiento: false, instalacion: false};
 	
-    //$scope.url ={defecto: "http://localhost:8082/"};
-    $scope.url ={defecto: "http://caribbeancollege.co/online/"};
+    $scope.url ={defecto: "http://localhost:8082/"};
+    //$scope.url ={defecto: "http://caribbeancollege.co/online/"};
     
     $scope.urlImg={name:"img/inicio.jpg"};
     
@@ -413,6 +413,8 @@ app.controller("AppController", function($scope, $http) {
         
         if($scope.AtencionServicio.MONTO!="" && $scope.AtencionServicio.ESTADO=="Realizado"){
             
+            document.getElementById("myImg_srvcio_2").style.visibility = "visible";
+            
             var f = document.createElement("form");
             f.setAttribute('method',"post");
             f.setAttribute('action',"https://stg.gateway.payulatam.com/ppp-web-gateway/");
@@ -461,6 +463,7 @@ app.controller("AppController", function($scope, $http) {
             f.appendChild(h);
             f.submit();
             
+            document.getElementById("myImg_srvcio").style.visibility = "hidden";
         }else{
             myNavigator.pushPage('form_comentario.html', { animation : 'slide' } );
         }        
