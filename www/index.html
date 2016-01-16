@@ -198,7 +198,7 @@
                     <div class="location">
                         <div style="float: left;position: absolute;opacity: 0.4;">{{sServicios.FECHA}}</div>
                         <div class="botonpay"><span style="color: white">-</span>
-                            <img src="img/boton-pagar.jpg" width="40px" height="20px" ng-if="sServicios.MONTO">
+                            <img src="img/boton-pagar.jpg" width="40px" height="20px" ng-if="sServicios.MONTO && sServicios.ESTADO =='Realizado'">
                         </div> 
                     </div>
                     <div class="desc">

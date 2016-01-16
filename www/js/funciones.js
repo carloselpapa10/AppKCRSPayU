@@ -4,8 +4,8 @@ app.controller("AppController", function($scope, $http) {
     
     $scope.formServicio = {radio: "EFECTIVO", reparar: false, garantia:false, mantenimiento: false, instalacion: false};
 	
-    //$scope.url ={defecto: "http://localhost:8082/"};
-    $scope.url ={defecto: "http://caribbeancollege.co/online/"};
+    $scope.url ={defecto: "http://localhost:8082/"};
+    //$scope.url ={defecto: "http://caribbeancollege.co/online/"};
     
     $scope.urlImg={name:"img/inicio.jpg"};
     
@@ -411,46 +411,46 @@ app.controller("AppController", function($scope, $http) {
     $scope.form_comentario = function (myNavigator,sServicios){
         $scope.AtencionServicio=sServicios;
         
-        if($scope.AtencionServicio.MONTO!=""){
+        if($scope.AtencionServicio.MONTO!="" && $scope.AtencionServicio.ESTADO=="Realizado"){
             
             var f = document.createElement("form");
-            f.setAttribute('method',"get");
-            f.setAttribute('action',"submit.php");
+            f.setAttribute('method',"post");
+            f.setAttribute('action',"https://stg.gateway.payulatam.com/ppp-web-gateway/");
             
             var a = document.createElement("input"); 
             a.setAttribute('type',"text");
             a.setAttribute('name',"merchantId");
-            a.setAttribute('value',"AAAAA");
+            a.setAttribute('value',"500238");
             
             var b = document.createElement("input"); 
             b.setAttribute('type',"text");
             b.setAttribute('name',"accountId");
-            b.setAttribute('value',"BBBBB");
+            b.setAttribute('value',"500538");
             
             var c = document.createElement("input"); 
             c.setAttribute('type',"text");
             c.setAttribute('name',"description");
-            c.setAttribute('value',"CCCCC");
+            c.setAttribute('value',"Test PAYU");
             
             var d = document.createElement("input"); 
             d.setAttribute('type',"text");
             d.setAttribute('name',"referenceCode");
-            d.setAttribute('value',"DDDDD");
+            d.setAttribute('value',"TestPayU");
             
             var e = document.createElement("input"); 
             e.setAttribute('type',"text");
             e.setAttribute('name',"amount");
-            e.setAttribute('value',"EEEEE");
+            e.setAttribute('value',"3");
             
             var g = document.createElement("input"); 
             g.setAttribute('type',"text");
-            g.setAttribute('name',"referenceCode");
-            g.setAttribute('value',"DDDDD");
+            g.setAttribute('name',"tax");
+            g.setAttribute('value',"0");
             
             var h = document.createElement("input"); 
             h.setAttribute('type',"text");
-            h.setAttribute('name',"referenceCode");
-            h.setAttribute('value',"DDDDD");
+            h.setAttribute('name',"taxReturnBase");
+            h.setAttribute('value',"0");
             
             f.appendChild(a);
             f.appendChild(b);
