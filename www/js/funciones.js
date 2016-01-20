@@ -407,7 +407,7 @@ app.controller("AppController", function($scope, $http) {
                 alert("Revise su conexión a internet...");
             });
     }
-    
+        
     $scope.form_comentario = function (myNavigator,sServicios){
         $scope.AtencionServicio=sServicios;
         
@@ -417,43 +417,70 @@ app.controller("AppController", function($scope, $http) {
             
             var f = document.createElement("form");
             f.setAttribute('method',"post");
-            f.setAttribute('action',"https://stg.gateway.payulatam.com/ppp-web-gateway/");
+            f.setAttribute('action',"https://stg.gateway.payulatam.com/ppp-web-gateway");
             
             var a = document.createElement("input"); 
-            a.setAttribute('type',"text");
+            a.setAttribute('type',"hidden");
             a.setAttribute('name',"merchantId");
             a.setAttribute('value',"500238");
             
             var b = document.createElement("input"); 
-            b.setAttribute('type',"text");
+            b.setAttribute('type',"hidden");
             b.setAttribute('name',"accountId");
             b.setAttribute('value',"500538");
             
             var c = document.createElement("input"); 
-            c.setAttribute('type',"text");
+            c.setAttribute('type',"hidden");
             c.setAttribute('name',"description");
-            c.setAttribute('value',"Test PAYU");
+            c.setAttribute('value',"Servicio KCRS");
             
             var d = document.createElement("input"); 
-            d.setAttribute('type',"text");
+            d.setAttribute('type',"hidden");
             d.setAttribute('name',"referenceCode");
-            d.setAttribute('value',"TestPayU");
+            d.setAttribute('value',$scope.AtencionServicio.ID);
             
             var e = document.createElement("input"); 
-            e.setAttribute('type',"text");
+            e.setAttribute('type',"hidden");
             e.setAttribute('name',"amount");
-            e.setAttribute('value',"3");
+            e.setAttribute('value',$scope.AtencionServicio.MONTO);
             
             var g = document.createElement("input"); 
-            g.setAttribute('type',"text");
+            g.setAttribute('type',"hidden");
             g.setAttribute('name',"tax");
             g.setAttribute('value',"0");
             
             var h = document.createElement("input"); 
-            h.setAttribute('type',"text");
+            h.setAttribute('type',"hidden");
             h.setAttribute('name',"taxReturnBase");
             h.setAttribute('value',"0");
             
+            var i = document.createElement("input"); 
+            i.setAttribute('type',"hidden");
+            i.setAttribute('name',"currency");
+            i.setAttribute('value',"COP");
+            
+            var j = document.createElement("input"); 
+            j.setAttribute('type',"hidden");
+            j.setAttribute('name',"lng");
+            j.setAttribute('value',"es");
+            
+            var k = document.createElement("input"); 
+            k.setAttribute('type',"hidden");
+            k.setAttribute('name',"sourceUrl");
+            k.setAttribute('value',"");
+            
+            var l = document.createElement("input"); 
+            l.setAttribute('type',"hidden");
+            l.setAttribute('name',"buttonType");
+            l.setAttribute('value',"SIMPLE");
+            
+            var m = document.createElement("input"); 
+            m.setAttribute('type',"hidden");
+            m.setAttribute('name',"signature");
+            m.setAttribute('value',md5("6u39nqhq8ftd0hlvnjfs66eh8c~500238~"+$scope.AtencionServicio.ID+"~"+$scope.AtencionServicio.MONTO+"~COP"));
+                
+            //alert("el md5 de 555 es: "+md5("6u39nqhq8ftd0hlvnjfs66eh8c~500238~TestPayU~3~USD"));    
+                
             f.appendChild(a);
             f.appendChild(b);
             f.appendChild(c);
@@ -461,6 +488,12 @@ app.controller("AppController", function($scope, $http) {
             f.appendChild(e);
             f.appendChild(g);
             f.appendChild(h);
+            f.appendChild(i);
+            f.appendChild(j);
+            f.appendChild(k);
+            f.appendChild(l);
+            f.appendChild(m);
+            
             f.submit();
             
             document.getElementById("myImg_srvcio").style.visibility = "hidden";
