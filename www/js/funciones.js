@@ -4,8 +4,8 @@ app.controller("AppController", function($scope, $http) {
     
     $scope.formServicio = {radio: "EFECTIVO", reparar: false, garantia:false, mantenimiento: false, instalacion: false};
 	
-    $scope.url ={defecto: "http://localhost/"};
-    //$scope.url ={defecto: "http://caribbeancollege.co/online/"};
+    //$scope.url ={defecto: "http://localhost/"};
+    $scope.url ={defecto: "http://caribbeancollege.co/online/"};
     
     $scope.urlImg={name:"img/inicio.jpg"};
     
