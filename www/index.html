@@ -143,7 +143,7 @@
 </ons-template>
 
 <ons-template id="menu_inicio.html" var="">
-    <ons-page>
+    <ons-page ng-device-backbutton="alert('Carlos')">
         <ons-tabbar position="top">
             <ons-tabbar-item page="form_producto.html" ng-click="listar_productos()" label="Producto" icon="fa-credit-card" active="true"></ons-tabbar-item>
             <ons-tabbar-item page="lista_servicios.html" ng-click="listar_servicios()" label="Servicios" icon="ion-briefcase"></ons-tabbar-item>
