@@ -178,7 +178,7 @@
         
 </ons-template>
 
-<ons-template id="lista_servicios.html" ng-device-backbutton="myNavigator.pushPage('form_producto.html', { animation : 'slide' } )">
+<ons-template id="lista_servicios.html" ng-device-backbutton="back()">
     <ons-toolbar>
         <div class="center"><b>Servicios</b> <img id="myImg_srvcio_2" src="img/preloader-01.gif" align="center" style="visibility: hidden;"></div>
     </ons-toolbar>
@@ -214,14 +214,12 @@
 	
 	</ons-list>
 
-    <!--<p style="padding-top: 100px; color: #999; text-align: center">Page Contents</p>-->
 </ons-template>
 
-<ons-template id="lista_comentarios.html" ng-device-backbutton="listar_productos()" on-device-backbutton="listar_productos()">
+<ons-template id="lista_comentarios.html" ng-device-backbutton="myNavigator.popPage();">
     <ons-toolbar>
         <div class="center"><b>Comentarios</b></div>
     </ons-toolbar>
-	<!-- ng-if="sComentario.ID_EMPRESA=='2020'" -->
 	<ons-list>
             <ons-list-item ng-repeat="sComentario in comentarios" modifier="chevron" class="list-item-container" ng-click="form_comentario_eliminar(myNavigator,sComentario)">
                     <div class="list-item-right">
@@ -237,8 +235,6 @@
                 </ons-list-item>
 		
     </ons-list>
-
-    <!--<p style="padding-top: 100px; color: #999; text-align: center">Page Contents</p>-->
 </ons-template>
 
 <ons-template id="form_perfil.html">
@@ -249,7 +245,7 @@
     <p style="padding-top: 100px; color: #999; text-align: center">Page Contents</p>
 </ons-template>
 
-<ons-template id="ajustes.html" ng-device-backbutton="listar_productos()" on-device-backbutton="listar_productos()">
+<ons-template id="ajustes.html" ng-device-backbutton="myNavigator.popPage();">
     <ons-toolbar>
         <div class="center"><b>Ajustes</b></div>
     </ons-toolbar>
@@ -286,8 +282,6 @@
           Cerrar Sesión
         </ons-list-item>
       </ons-list>
-	  
-     <!--<p style="padding-top: 100px; color: #999; text-align: center">Page Contents</p>-->
 </ons-template>
 
 <ons-template id="form_servicio.html" ng-device-backbutton="myNavigator.popPage();"> 
@@ -359,7 +353,7 @@
     </div>
 </ons-template>
 
-<ons-template id="form_comentario.html" ng-device-backbutton="listar_servicios()"> 
+<ons-template id="form_comentario.html" ng-device-backbutton="myNavigator.popPage();"> 
 
     <ons-toolbar>
         <div class="center"><b>Comentario</b></div>
@@ -396,7 +390,7 @@
       </div>
 </ons-template>	
 
-<ons-template id="form_comentario_eliminar.html"> 
+<ons-template id="form_comentario_eliminar.html" ng-device-backbutton="myNavigator.popPage();"> 
 
     <ons-toolbar>
         <div class="center"><b>Eliminar Comentario</b></div>
