@@ -436,13 +436,13 @@
 
 <script>
 	ons.ready(function() {
-		 ons.disableDeviceBackButtonHandler();
-
-  // Use Cordova handler
-  window.document.addEventListener('backbutton', function() {
-    // Handle backbutton event
-    alert('Carlos');
-  }, false);
+            ons.disableDeviceBackButtonHandler();
+            // Use Cordova handler
+            window.document.addEventListener('backbutton', function() {
+            // Handle backbutton event
+                alert('Carlos');
+            }, false);
+        });
 		/*myPage.setDeviceBackButtonHandler(function() {
 			// Write your handler here
 			alert("Carlos si");
