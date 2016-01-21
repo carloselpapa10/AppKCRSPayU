@@ -573,6 +573,10 @@ app.controller("AppController", function($scope, $http) {
                 alert("Revise su conexión a internet...");
             });
     }
+    
+    $scope.back = function (myNavigator) {
+	alert('Sisas '+myNavigator);
+    }
 	
     $scope.salir = function () {
 		/*borrar datos local*/
