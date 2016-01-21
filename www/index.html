@@ -142,8 +142,8 @@
     <ons-page>
         <ons-tabbar position="top">
             <ons-tabbar-item page="form_producto.html" ng-click="listar_productos()" label="Producto" icon="fa-credit-card" active="true"></ons-tabbar-item>
-            <ons-tabbar-item page="lista_servicios.html" ng-click="listar_servicios()" label="Servicios" icon="ion-briefcase"></ons-tabbar-item>
-            <ons-tabbar-item page="lista_comentarios.html" ng-click="listar_comentarios()" label="Comentarios" icon="ion-chatbox-working"></ons-tabbar-item>            
+            <ons-tabbar-item page="lista_servicios.html" ng-device-backbutton="back(myNavigator)" ng-click="listar_servicios()" label="Servicios" icon="ion-briefcase"></ons-tabbar-item>
+            <ons-tabbar-item page="lista_comentarios.html" ng-device-backbutton="myNavigator.popPage();" ng-click="listar_comentarios()" label="Comentarios" icon="ion-chatbox-working"></ons-tabbar-item>            
             <ons-tabbar-item page="ajustes.html" label="Ajustes" icon="ion-ios-cog"></ons-tabbar-item>
         </ons-tabbar>
     </ons-page>
@@ -178,7 +178,7 @@
         
 </ons-template>
 
-<ons-template id="lista_servicios.html" ng-device-backbutton="back(myNavigator)">
+<ons-template id="lista_servicios.html">
     <ons-toolbar>
         <div class="center"><b>Servicios</b> <img id="myImg_srvcio_2" src="img/preloader-01.gif" align="center" style="visibility: hidden;"></div>
     </ons-toolbar>
@@ -216,7 +216,7 @@
 
 </ons-template>
 
-<ons-template id="lista_comentarios.html" ng-device-backbutton="myNavigator.popPage();">
+<ons-template id="lista_comentarios.html">
     <ons-toolbar>
         <div class="center"><b>Comentarios</b></div>
     </ons-toolbar>
@@ -237,15 +237,7 @@
     </ons-list>
 </ons-template>
 
-<ons-template id="form_perfil.html">
-    <ons-toolbar>
-        <div class="center"><b>Perfil</b></div>
-    </ons-toolbar>
-
-    <p style="padding-top: 100px; color: #999; text-align: center">Page Contents</p>
-</ons-template>
-
-<ons-template id="ajustes.html" ng-device-backbutton="myNavigator.popPage();">
+<ons-template id="ajustes.html">
     <ons-toolbar>
         <div class="center"><b>Ajustes</b></div>
     </ons-toolbar>
