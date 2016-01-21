@@ -66,7 +66,7 @@
 
 </ons-navigator>
 
-<ons-template id="registro.html">
+<ons-template id="registro.html" ng-device-backbutton="myNavigator.popPage();">
     <ons-page>
         <ons-toolbar>
             <div class="left">
@@ -138,7 +138,7 @@
     </ons-page>
 </ons-template>
 
-<ons-template id="menu_inicio.html" var="">
+<ons-template id="menu_inicio.html">
     <ons-page>
         <ons-tabbar position="top">
             <ons-tabbar-item page="form_producto.html" ng-click="listar_productos()" label="Producto" icon="fa-credit-card" active="true"></ons-tabbar-item>
@@ -178,7 +178,7 @@
         
 </ons-template>
 
-<ons-template id="lista_servicios.html">
+<ons-template id="lista_servicios.html" ng-device-backbutton="myNavigator.pushPage('form_producto.html', { animation : 'slide' } )">
     <ons-toolbar>
         <div class="center"><b>Servicios</b> <img id="myImg_srvcio_2" src="img/preloader-01.gif" align="center" style="visibility: hidden;"></div>
     </ons-toolbar>
@@ -290,7 +290,7 @@
      <!--<p style="padding-top: 100px; color: #999; text-align: center">Page Contents</p>-->
 </ons-template>
 
-<ons-template id="form_servicio.html" ng-device-backbutton="listar_productos()" on-device-backbutton="listar_productos()"> 
+<ons-template id="form_servicio.html" ng-device-backbutton="myNavigator.popPage();"> 
 
     <ons-toolbar>
         <div class="center"><b>Generar Servicio</b></div>
