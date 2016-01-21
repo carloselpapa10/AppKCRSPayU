@@ -4,7 +4,7 @@ app.controller("AppController", function($scope, $http) {
     
     $scope.formServicio = {radio: "EFECTIVO", reparar: false, garantia:false, mantenimiento: false, instalacion: false};
 	
-    //$scope.url ={defecto: "http://localhost/"};
+    //$scope.url ={defecto: "http://localhost:8082/"};
     $scope.url ={defecto: "http://caribbeancollege.co/online/"};
     
     $scope.urlImg={name:"img/inicio.jpg"};
@@ -54,26 +54,23 @@ app.controller("AppController", function($scope, $http) {
         ERROR: ''
     };
     
+    $scope.payU = {
+        URL: '',
+        APIKEY:'',
+        MERCHANTID:'',
+        ACCOUNTID:'',
+        DESCRIPTION:'',
+        TAX:'',
+        TAXRETURNBASE:'',
+        CURRENCY:'',
+        LNG:'',
+        SOURCEURL:'',
+        BUTTONTYPE:'',
+        ERROR:''
+    };
     
-    $scope.cambiaImg = function () {
-        $http.get($scope.url.defecto+"kcrs_servidor/listarComentarios.php")
-            .success(
-            function(response){
-                if(response[0].ERROR == 0){
-                    $scope.urlImg.name=$scope.url.defecto+"kcrs_servidor/images/inicio.jpg";                    
-                }else{
-                    $scope.urlImg.name="img/inicio.jpg";
-                }                
-            })
-            .error(
-            function(){
-                //alert("Revise su conexión a internet...");
-            });
-    }
     
-    $scope.cambiaImg();
-    
-	$scope.autologin = function () {
+    $scope.autologin = function () {
 			if(localStorage.getItem("sIdentificacion") != null && localStorage.getItem("sPassword") != null){
 				$http.get($scope.url.defecto+"kcrs_servidor/login.php?sIdentificacion="+localStorage.getItem("sIdentificacion")+"&sPassword="+localStorage.getItem("sPassword"))
                 .success(
@@ -87,6 +84,7 @@ app.controller("AppController", function($scope, $http) {
                         $scope.empresa.EMAIL = response[0].EMAIL;
                         $scope.empresa.IMAGEN = response[0].IMAGEN;
                         
+                        $scope.listar_payu();
                         $scope.listar_productos();
                         $scope.listar_servicios();
                         $scope.listar_comentarios();
@@ -103,8 +101,9 @@ app.controller("AppController", function($scope, $http) {
                     //myNavigator.resetToPage('login.html', { animation : 'fade' });
                 });
 			}
-	}
-	$scope.autologin();
+    }
+	
+    $scope.autologin();
 	
     $scope.login = function (myNavigator) {
 		myNavigator.getDeviceBackButtonHandler().disable();
@@ -137,6 +136,7 @@ app.controller("AppController", function($scope, $http) {
                         $scope.empresa.EMAIL = response[0].EMAIL;
                         $scope.empresa.IMAGEN = response[0].IMAGEN;
                         
+                        $scope.listar_payu();
                         $scope.listar_productos();
                         $scope.listar_servicios();
                         $scope.listar_comentarios();
@@ -161,7 +161,7 @@ app.controller("AppController", function($scope, $http) {
     }
     
     $scope.form_registrarse = function (myNavigator){
-		myNavigator.pushPage('registro.html', { animation : 'fade' } );
+	myNavigator.pushPage('registro.html', { animation : 'fade' } );
     }
     
     $scope.form_recordar_password = function (myNavigator){
@@ -268,6 +268,22 @@ app.controller("AppController", function($scope, $http) {
                 function(){
                     alert("Revise su conexión a internet...");
                 });		
+    }
+    
+    $scope.listar_payu = function (){
+        $http.get($scope.url.defecto+"kcrs_servidor/listarPayU.php")
+            .success(
+            function(response){
+                if(response[0].ERROR == 0){                    
+                    $scope.payU = response;
+                }else{
+                    alert("Hubo un error con el servidor.");
+                }                
+            })
+            .error(
+            function(){
+                alert("Revise su conexión a internet...");
+            });
     }
     
     $scope.listar_productos = function (){
@@ -417,22 +433,22 @@ app.controller("AppController", function($scope, $http) {
             
             var f = document.createElement("form");
             f.setAttribute('method',"post");
-            f.setAttribute('action',"https://stg.gateway.payulatam.com/ppp-web-gateway");
+            f.setAttribute('action',$scope.payU[0].URL);
             
             var a = document.createElement("input"); 
             a.setAttribute('type',"hidden");
             a.setAttribute('name',"merchantId");
-            a.setAttribute('value',"500238");
+            a.setAttribute('value',$scope.payU[0].MERCHANTID);
             
             var b = document.createElement("input"); 
             b.setAttribute('type',"hidden");
             b.setAttribute('name',"accountId");
-            b.setAttribute('value',"500538");
+            b.setAttribute('value',$scope.payU[0].ACCOUNTID);
             
             var c = document.createElement("input"); 
             c.setAttribute('type',"hidden");
             c.setAttribute('name',"description");
-            c.setAttribute('value',"Servicio KCRS");
+            c.setAttribute('value',$scope.payU[0].DESCRIPTION);
             
             var d = document.createElement("input"); 
             d.setAttribute('type',"hidden");
@@ -447,39 +463,38 @@ app.controller("AppController", function($scope, $http) {
             var g = document.createElement("input"); 
             g.setAttribute('type',"hidden");
             g.setAttribute('name',"tax");
-            g.setAttribute('value',"0");
+            g.setAttribute('value',$scope.payU[0].TAX);
             
             var h = document.createElement("input"); 
             h.setAttribute('type',"hidden");
             h.setAttribute('name',"taxReturnBase");
-            h.setAttribute('value',"0");
+            h.setAttribute('value',$scope.payU[0].TAXRETURNBASE);
             
             var i = document.createElement("input"); 
             i.setAttribute('type',"hidden");
             i.setAttribute('name',"currency");
-            i.setAttribute('value',"COP");
+            i.setAttribute('value',$scope.payU[0].CURRENCY);
             
             var j = document.createElement("input"); 
             j.setAttribute('type',"hidden");
             j.setAttribute('name',"lng");
-            j.setAttribute('value',"es");
+            j.setAttribute('value',$scope.payU[0].LNG);
             
             var k = document.createElement("input"); 
             k.setAttribute('type',"hidden");
             k.setAttribute('name',"sourceUrl");
-            k.setAttribute('value',"");
+            k.setAttribute('value',$scope.payU[0].SOURCEURL);
             
             var l = document.createElement("input"); 
             l.setAttribute('type',"hidden");
             l.setAttribute('name',"buttonType");
-            l.setAttribute('value',"SIMPLE");
+            l.setAttribute('value',$scope.payU[0].BUTTONTYPE);
             
             var m = document.createElement("input"); 
             m.setAttribute('type',"hidden");
             m.setAttribute('name',"signature");
-            m.setAttribute('value',md5("6u39nqhq8ftd0hlvnjfs66eh8c~500238~"+$scope.AtencionServicio.ID+"~"+$scope.AtencionServicio.MONTO+"~COP"));
-                
-            //alert("el md5 de 555 es: "+md5("6u39nqhq8ftd0hlvnjfs66eh8c~500238~TestPayU~3~USD"));    
+            m.setAttribute('value',md5($scope.payU[0].APIKEY+"~"+$scope.payU[0].MERCHANTID+"~"+$scope.AtencionServicio.ID+"~"+$scope.AtencionServicio.MONTO+"~"+$scope.payU[0].CURRENCY));
+            //alert("el md5 de 555 es: "+md5("6u39nqhq8ftd0hlvnjfs66eh8c~500238~TestPayU~3~USD"));
                 
             f.appendChild(a);
             f.appendChild(b);
