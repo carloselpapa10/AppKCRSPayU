@@ -33,18 +33,6 @@
 <body ng-controller="AppController">
     <script src="scripts/index.js"></script>
 
-<!--
-<ons-navigator var="myNavigator">
-
-	<ons-page style="background-color:white">
-		<img src="{{urlImg.name}}" class="thumbnail2" style="" align="center">
-		<script>
-			//setTimeout("myNavigator.resetToPage('login.html', { animation : 'fade' });", 1000);
-		</script>
-	</ons-page>
-	
-</ons-navigator>-->
-	
 <ons-navigator var="myNavigator" id="login.html">
     <ons-page>
         <ons-toolbar>
@@ -177,7 +165,7 @@
         
 </ons-template>
 
-<ons-template id="lista_servicios.html" ng-device-backbutton="alert('common');" on-device-backbutton="alert('cangry');">
+<ons-template id="lista_servicios.html">
     <ons-toolbar>
         <div class="center"><b>Servicios</b> <img id="myImg_srvcio_2" src="img/preloader-01.gif" align="center" style="visibility: hidden;"></div>
     </ons-toolbar>
@@ -419,16 +407,3 @@
 </ons-template>
 </body>
 </html>
-
-<script>
-	ons.ready(function() {
-	    pageLisServicios.setDeviceBackButtonHandler(function() {
-	      // Write your handler here
-	      alert("Sisas");
-	    });
-	
-	    /* Get the back button handler and disable it
-	    var handler = myPage.getDeviceBackButtonHandler();
-	    handler.disable();*/
-	  });
-</script>
