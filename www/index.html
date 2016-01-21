@@ -119,8 +119,8 @@
     </ons-page>
 </ons-template>
 
-<ons-template id="recuperar_password.html" >
-    <ons-page var="myPage">
+<ons-template id="recuperar_password.html" ng-device-backbutton="myNavigator.popPage();">
+    <ons-page>
         <ons-toolbar>
             <div class="left">
                 <ons-back-button>Atrás</ons-back-button>
@@ -436,7 +436,7 @@
 </html>
 
 <script>
-	ons.ready(function() {
+/*	ons.ready(function() {
             ons.disableDeviceBackButtonHandler();
             // Use Cordova handler
             window.document.addEventListener('backbutton', function() {
@@ -444,7 +444,7 @@
                 alert('Carlos');
             }, false);
         });
-		/*myPage.setDeviceBackButtonHandler(function() {
+		myPage.setDeviceBackButtonHandler(function() {
 			// Write your handler here
 			alert("Carlos si");
 		});*/
