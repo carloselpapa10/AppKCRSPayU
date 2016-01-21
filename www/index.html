@@ -29,7 +29,16 @@
     <script src="js/funciones.js"></script>
     	
 	<script>
-            
+            ons.ready(function() {
+				myPage.setDeviceBackButtonHandler(function() {
+				  // Write your handler here
+				  alert("Carlos si");
+				});
+
+				/* Get the back button handler and disable it
+				var handler = myPage.getDeviceBackButtonHandler();
+				handler.disable();*/
+			});
 	</script>
 
 </head>
@@ -124,7 +133,7 @@
 </ons-template>
 
 <ons-template id="recuperar_password.html" ng-device-backbutton="alert('carlos')" on-device-backbutton="alert('carlos')">
-    <ons-page>
+    <ons-page var="myPage">
         <ons-toolbar>
             <div class="left">
                 <ons-back-button>Atrás</ons-back-button>
