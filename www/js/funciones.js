@@ -107,7 +107,7 @@ app.controller("AppController", function($scope, $http) {
 	$scope.autologin();
 	
     $scope.login = function (myNavigator) {
-	
+		myNavigator.getDeviceBackButtonHandler().disable();
 		var sIdentificacion = document.getElementById("identificacion_L").value;
 		var sPassword = document.getElementById("password_L").value;
 		
