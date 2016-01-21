@@ -27,20 +27,6 @@
     <title>KCRS</title>	
     <script src="js/md5-0.9.pack.js" type="text/javascript"></script>
     <script src="js/funciones.js"></script>
-    	
-	<script>
-            ons.ready(function() {
-				/*myPage.setDeviceBackButtonHandler(function() {
-				  // Write your handler here
-				  alert("Carlos si");
-				});*/
-
-				// Get the back button handler and disable it
-				var handler = myPage.getDeviceBackButtonHandler();
-				handler.disable();
-			});
-	</script>
-
 </head>
 
 <body ng-controller="AppController">
@@ -191,7 +177,7 @@
         
 </ons-template>
 
-<ons-template id="lista_servicios.html" ng-device-backbutton="listar_productos()" on-device-backbutton="listar_productos()">
+<ons-template id="lista_servicios.html">
     <ons-toolbar>
         <div class="center"><b>Servicios</b> <img id="myImg_srvcio_2" src="img/preloader-01.gif" align="center" style="visibility: hidden;"></div>
     </ons-toolbar>
@@ -449,13 +435,14 @@
 </html>
 
 <script>
-	/*onload=function(){
-	
-		
-        
-		//setTimeout(alertFunc, 3000);       
- 
-        // Indicamos que cada 5 segundos cambie la imagen
-        setInterval(alertFunc,2000);
-    }*/
+	ons.ready(function() {
+		myPage.setDeviceBackButtonHandler(function() {
+			// Write your handler here
+			alert("Carlos si");
+		});
+
+		/* Get the back button handler and disable it
+			var handler = myPage.getDeviceBackButtonHandler();
+			handler.disable();
+		});*/
 	</script>
