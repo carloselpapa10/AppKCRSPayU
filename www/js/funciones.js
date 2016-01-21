@@ -4,8 +4,8 @@ app.controller("AppController", function($scope, $http) {
     
     $scope.formServicio = {radio: "EFECTIVO", reparar: false, garantia:false, mantenimiento: false, instalacion: false};
 	
-    //$scope.url ={defecto: "http://localhost:8082/"};
-    $scope.url ={defecto: "http://caribbeancollege.co/online/"};
+    $scope.url ={defecto: "http://localhost/"};
+    //$scope.url ={defecto: "http://caribbeancollege.co/online/"};
     
     $scope.urlImg={name:"img/inicio.jpg"};
     
@@ -390,6 +390,16 @@ app.controller("AppController", function($scope, $http) {
         if($scope.formServicio.instalacion)$scope.formServicio.instalacion=false;
 	else $scope.formServicio.instalacion=true;
     }
+	
+	document.addEventListener("backbutton", function (e) {
+		alert("hola");
+        if ($rootScope.ons.navigator.getPages().length > 1) {
+            e.preventDefault();
+            $rootScope.ons.navigator.popPage();
+        } else {
+            navigator.app.exitApp();
+        }
+    }, false);
 	
     $scope.listar_servicios = function (){
         $http.get($scope.url.defecto+"kcrs_servidor/listarServicios.php?sIdEmpresa="+$scope.empresa.IDENTIFICACION)
