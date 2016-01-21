@@ -178,7 +178,7 @@
         
 </ons-template>
 
-<ons-template id="lista_servicios.html">
+<ons-template id="lista_servicios.html" var="pageLisServicios">
     <ons-toolbar>
         <div class="center"><b>Servicios</b> <img id="myImg_srvcio_2" src="img/preloader-01.gif" align="center" style="visibility: hidden;"></div>
     </ons-toolbar>
@@ -422,21 +422,14 @@
 </html>
 
 <script>
-/*	ons.ready(function() {
-            ons.disableDeviceBackButtonHandler();
-            // Use Cordova handler
-            window.document.addEventListener('backbutton', function() {
-            // Handle backbutton event
-                alert('Carlos');
-            }, false);
-        });
-		myPage.setDeviceBackButtonHandler(function() {
-			// Write your handler here
-			alert("Carlos si");
-		});*/
-
-		/* Get the back button handler and disable it
-			var handler = myPage.getDeviceBackButtonHandler();
-			handler.disable();
-		});*/
-	</script>
+	ons.ready(function() {
+	    pageLisServicios.setDeviceBackButtonHandler(function() {
+	      // Write your handler here
+	      alert("Sisas");
+	    });
+	
+	    /* Get the back button handler and disable it
+	    var handler = myPage.getDeviceBackButtonHandler();
+	    handler.disable();*/
+	  });
+</script>
