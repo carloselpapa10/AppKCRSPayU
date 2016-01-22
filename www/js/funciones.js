@@ -69,11 +69,21 @@ app.controller("AppController", function($scope, $http) {
         ERROR:''
     };
     
+    $scope.mensaje = {
+        DESCRIPCION:''
+    };
     
-    $scope.autologin = function () {
-			if(localStorage.getItem("sIdentificacion") != null && localStorage.getItem("sPassword") != null){
-				$http.get($scope.url.defecto+"kcrs_servidor/login.php?sIdentificacion="+localStorage.getItem("sIdentificacion")+"&sPassword="+localStorage.getItem("sPassword"))
-                .success(
+    $scope.alert = function(material) {
+        ons.notification.alert({
+            message: $scope.mensaje.DESCRIPCION,
+            modifier: material ? 'material' : undefined
+        });        
+    };
+    
+    $scope.autologin = function () {    
+	if(localStorage.getItem("sIdentificacion") != null && localStorage.getItem("sPassword") != null){
+            $http.get($scope.url.defecto+"kcrs_servidor/login.php?sIdentificacion="+localStorage.getItem("sIdentificacion")+"&sPassword="+localStorage.getItem("sPassword"))
+            .success(
                 function(response){
                     if(response[0].ERROR == 0){
                         $scope.empresa.IDENTIFICACION = response[0].IDENTIFICACION;
@@ -92,42 +102,44 @@ app.controller("AppController", function($scope, $http) {
                         myNavigator.resetToPage('menu_inicio.html', { animation : 'lift' });
 
                     }else{
-                        //myNavigator.resetToPage('login.html', { animation : 'fade' });
+                        document.getElementById("myImg_srvcio_3").style.visibility = "hidden";
                     }
 
                 })
                 .error(
                 function(error, status){
-                    //myNavigator.resetToPage('login.html', { animation : 'fade' });
+                    document.getElementById("myImg_srvcio_3").style.visibility = "hidden";
                 });
-			}
+	}else document.getElementById("myImg_srvcio_3").style.visibility = "hidden";
     }
 	
     $scope.autologin();
 	
     $scope.login = function (myNavigator) {
-		myNavigator.getDeviceBackButtonHandler().disable();
+                
 		var sIdentificacion = document.getElementById("identificacion_L").value;
 		var sPassword = document.getElementById("password_L").value;
 		
 		if(sIdentificacion.trim()==""){
-			alert("Digite su Cedula o Nit...");
-			document.getElementById("identificacion_L").value="";
+                        document.getElementById("identificacion_L").value="";
+                        $scope.mensaje.DESCRIPCION = 'Digite su Cedula o Nit';
+                        $scope.alert(); 
 			document.getElementById("identificacion_L").focus();
 			return null;
 		}
 		
 		if(sPassword.trim()==""){
-			alert("Digite su Password...");
+                        $scope.mensaje.DESCRIPCION = 'Digite su Password';
+                        $scope.alert(); 
 			document.getElementById("password_L").value="";
 			document.getElementById("password_L").focus();
 			return null;
-		}
-                  
+		}                
                 $http.get($scope.url.defecto+"kcrs_servidor/login.php?sIdentificacion="+sIdentificacion+"&sPassword="+sPassword)
                 .success(
                 function(response){
                     if(response[0].ERROR == 0){
+                        modal.show();  
                         $scope.empresa.IDENTIFICACION = response[0].IDENTIFICACION;
                         $scope.empresa.NOMBRE = response[0].NOMBRE;
                         $scope.empresa.DIRECCION = response[0].DIRECCION;
@@ -141,21 +153,24 @@ app.controller("AppController", function($scope, $http) {
                         $scope.listar_servicios();
                         $scope.listar_comentarios();
 						
-						/*guardar datos local*/
-						localStorage.setItem("sIdentificacion", sIdentificacion);
-						localStorage.setItem("sPassword", sPassword);
+			/*guardar datos local*/
+			localStorage.setItem("sIdentificacion", sIdentificacion);
+			localStorage.setItem("sPassword", sPassword);
                         
+                        modal.hide();
                         myNavigator.resetToPage('menu_inicio.html', { animation : 'lift' });
 
                     }else{
-                        alert("Identificación y password incorrectos.");
+                        $scope.mensaje.DESCRIPCION = 'Identificación y password incorrectos';
+                        $scope.alert(); 
                         document.getElementById("password_L").focus();
                     }
 
                 })
                 .error(
                 function(error, status){
-                    alert("Revise su conexión a internet. "+status);
+                    $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                    $scope.alert(); 
                 });
                 
     }
@@ -179,54 +194,62 @@ app.controller("AppController", function($scope, $http) {
 		var sEmail = document.getElementById("email_R").value;
 		
 		if(sNombre.trim()==""){
-			alert("Llene el campo Nombre o Empresa...");
+                        $scope.mensaje.DESCRIPCION = 'Llene el campo Nombre o Empresa';
+                        $scope.alert(); 
 			document.getElementById("nombre_R").value="";
 			document.getElementById("nombre_R").focus();
 			return null;
 		}
 		
 		if(sIdentificacion.trim()==""){
-			alert("Llene el campo Cedula o Nit...");
+                        $scope.mensaje.DESCRIPCION = 'Llene el campo Cedula o Nit';
+                        $scope.alert();
 			document.getElementById("identificacion_R").value="";
 			document.getElementById("identificacion_R").focus();
 			return null;
 		}
 		
 		if(sPassword1.trim()==""){
-			alert("Llene el campo Password1...");
+                        $scope.mensaje.DESCRIPCION = 'Llene el campo Password1';
+                        $scope.alert();
 			document.getElementById("password1_R").value="";
 			document.getElementById("password1_R").focus();
 			return null;
 		}
 		
 		if(sPassword2.trim()==""){
-			alert("Llene el campo Password2...");
+                        $scope.mensaje.DESCRIPCION = 'Llene el campo Password2';
+                        $scope.alert();
 			document.getElementById("password2_R").value="";
 			document.getElementById("password2_R").focus();
 			return null;
 		}
 		
 		if(sPassword1.length<4){
-			alert("El campo Password1 debe tener 4 o más caracteres...");
+                        $scope.mensaje.DESCRIPCION = 'El campo Password1 debe tener 4 o más caracteres';
+                        $scope.alert();
 			document.getElementById("password1_R").focus();
 			return null;
 		}
 		
 		if(sPassword1 != sPassword2){
-			alert("Sus Passwords no coinciden...");
+                        $scope.mensaje.DESCRIPCION = 'Sus Passwords no coinciden';
+                        $scope.alert();
 			document.getElementById("password1_R").focus();
 			return null;
 		}
 		
 		if(sCelular.trim()==""){
-			alert("Llene el campo Celular...");
+                        $scope.mensaje.DESCRIPCION = 'Llene el campo Celular';
+                        $scope.alert();
 			document.getElementById("celular_R").value="";
 			document.getElementById("celular_R").focus();
 			return null;
 		}
 		
 		if(sEmail.trim()==""){
-			alert("Llene el campo Email...");
+                        $scope.mensaje.DESCRIPCION = 'Llene el campo Email';
+                        $scope.alert();
 			document.getElementById("email_R").value="";
 			document.getElementById("email_R").focus();
 			return null;
@@ -239,7 +262,8 @@ app.controller("AppController", function($scope, $http) {
 		}
 		
 		if(!sw || (sEmail.length-1)<=x){
-			alert("Correo incorrecto...");
+                        $scope.mensaje.DESCRIPCION = 'Correo incorrecto';
+                        $scope.alert();
 			document.getElementById("email_R").focus();
 			return null;
 		}
@@ -249,7 +273,8 @@ app.controller("AppController", function($scope, $http) {
                 function(response){
                     var respuesta = response.trim();
                     if(respuesta == "0"){
-                        alert("Se ha registrado correctamente.");
+                        $scope.mensaje.DESCRIPCION = 'Se ha registrado correctamente';
+                        $scope.alert();
                         document.getElementById("nombre_R").value="";
                         document.getElementById("identificacion_R").value="";
                         document.getElementById("password1_R").value="";
@@ -259,14 +284,17 @@ app.controller("AppController", function($scope, $http) {
                         document.getElementById("celular_R").value="";
                         document.getElementById("email_R").value="";
                     }else if(respuesta == "1"){
-                        alert("Identificación ya se encuentra registrada.");
+                        $scope.mensaje.DESCRIPCION = 'Identificación ya se encuentra registrada';
+                        $scope.alert();
                     }else{
-                        alert("Hubo un error con el servidor.");
+                        $scope.mensaje.DESCRIPCION = 'Hubo un error con el servidor';
+                        $scope.alert();
                     }
                 })
                 .error(
                 function(){
-                    alert("Revise su conexión a internet...");
+                    $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                    $scope.alert();
                 });		
     }
     
@@ -277,12 +305,14 @@ app.controller("AppController", function($scope, $http) {
                 if(response[0].ERROR == 0){                    
                     $scope.payU = response;
                 }else{
-                    alert("Hubo un error con el servidor.");
+                    $scope.mensaje.DESCRIPCION = 'Hubo un error con el servidor';
+                    $scope.alert();
                 }                
             })
             .error(
             function(){
-                alert("Revise su conexión a internet...");
+                $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                $scope.alert();
             });
     }
     
@@ -293,12 +323,14 @@ app.controller("AppController", function($scope, $http) {
                 if(response[0].ERROR == 0){
                     $scope.productos = response;                    
                 }else{
-                    alert("Hubo un error con el servidor.");
+                    $scope.mensaje.DESCRIPCION = 'Hubo un error con el servidor';
+                    $scope.alert();
                 }                
             })
             .error(
             function(){
-                alert("Revise su conexión a internet...");
+                $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                $scope.alert();
             });
     }
     
@@ -311,7 +343,8 @@ app.controller("AppController", function($scope, $http) {
         var sIdentificacion = document.getElementById("identificacion_RC").value;
     
         if(sIdentificacion.trim()==""){
-            alert("Digite su Cedula o Nit...");
+            $scope.mensaje.DESCRIPCION = 'Digite su Cedula o Nit';
+            $scope.alert();
             document.getElementById("identificacion_RC").value="";
             document.getElementById("identificacion_RC").focus();
             return null;
@@ -321,18 +354,22 @@ app.controller("AppController", function($scope, $http) {
                         function (response) {
                             var respuesta = response.trim();
                             if (respuesta == "0") {
-                                alert("Se ha generado una nueva contraseña y ha sido enviada a su correo. ");
+                                $scope.mensaje.DESCRIPCION = 'Se ha generado una nueva contraseña y ha sido enviada a su correo';
+                                $scope.alert();
                                 document.getElementById("identificacion_RC").value="";
                             } else if (respuesta == "1") {
-                                alert("Su identificación no existe en la base de datos.");
+                                $scope.mensaje.DESCRIPCION = 'Su identificación no existe en la base de datos';
+                                $scope.alert();
                                 document.getElementById("identificacion_RC").focus();
                             } else {
-                                alert("Hubo un error con el servidor.");
+                                $scope.mensaje.DESCRIPCION = 'Hubo un error con el servidor';
+                                $scope.alert();
                             }
                         })
                 .error(
                         function () {
-                            alert("Revise su conexión a internet...");
+                            $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                            $scope.alert();
                         });
                         
     }
@@ -349,7 +386,8 @@ app.controller("AppController", function($scope, $http) {
 		var sInstalacion = $scope.formServicio.instalacion;
 		
 		if(!sReparar && !sGarantia && !sMantenimiento && !sInstalacion){
-			alert("Active un servicio...");
+                        $scope.mensaje.DESCRIPCION = 'Active un servicio';
+                        $scope.alert();
 			document.getElementById("envia_servicio").hidden = false;
 			document.getElementById("myImg_srvcio").style.visibility = "hidden";
 			return null;
@@ -359,19 +397,22 @@ app.controller("AppController", function($scope, $http) {
                         function (response) {
                             var respuesta = response.trim();
                             if (respuesta == "0") {
-                                alert("Se ha generado un nuevo servicio. ");
+                                $scope.mensaje.DESCRIPCION = 'Se ha generado un nuevo servicio';
+                                $scope.alert();
                                 $scope.formServicio.reparar=false;
                                 $scope.formServicio.garantia=false;
                                 $scope.formServicio.mantenimiento=false;
                                 $scope.formServicio.instalacion=false;
                                 myNavigator.popPage();
                             }else {
-                                alert("Hubo un error con el servidor.");
+                                $scope.mensaje.DESCRIPCION = 'Hubo un error con el servidor';
+                                $scope.alert();
                             }
                         })
                 .error(
                         function () {
-                            alert("Revise su conexión a internet...");
+                            $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                            $scope.alert();
                         });
 						
 		document.getElementById("myImg_srvcio").style.visibility = "hidden";				
@@ -420,7 +461,8 @@ app.controller("AppController", function($scope, $http) {
             })
             .error(
             function(){
-                alert("Revise su conexión a internet...");
+                $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                $scope.alert();
             });
     }
         
@@ -532,12 +574,12 @@ app.controller("AppController", function($scope, $http) {
                     $scope.comentarios = response;                    
                 }else{
                     $scope.comentarios = null;
-                    //alert("Hubo un error con el servidor.");
                 }                
             })
             .error(
             function(){
-                alert("Revise su conexión a internet...");
+                $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                $scope.alert();
             });
     }
 	
@@ -549,15 +591,18 @@ app.controller("AppController", function($scope, $http) {
                 var respuesta = response.trim();
                 if(respuesta == "0"){
                     $scope.listar_comentarios();
-                    alert("Se ha eliminado su comentario.");
+                    $scope.mensaje.DESCRIPCION = 'Se ha eliminado su comentario';
+                    $scope.alert();
                     myNavigator.popPage();
                 }else{
-                    alert("Problemas con el servidor.");
+                    $scope.mensaje.DESCRIPCION = 'Problemas con el servidor';
+                    $scope.alert();
                 }                
             })
             .error(
             function(){
-                alert("Revise su conexión a internet...");
+                $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                $scope.alert();
             });
     }
     
@@ -565,7 +610,8 @@ app.controller("AppController", function($scope, $http) {
 
         var sComentario = document.getElementById("comentario_C").value;
 	if(sComentario.trim()==""){
-            alert("Ingrese su comentario...");
+            $scope.mensaje.DESCRIPCION = 'Ingrese su comentario';
+            $scope.alert();
             document.getElementById("comentario_C").value="";
             document.getElementById("comentario_C").focus();
             return null;
@@ -576,23 +622,25 @@ app.controller("AppController", function($scope, $http) {
             function(response){
                 var respuesta = response.trim();
                 if(respuesta == "0"){
-                    alert("Se ha enviado su comentario.");
+                    $scope.mensaje.DESCRIPCION = 'Se ha enviado su comentario';
+                    $scope.alert();
                     document.getElementById("comentario_C").value="";
                     document.getElementById("comentario_C").focus();
                 }else{
-                    alert("Problemas con el servidor.");
+                    $scope.mensaje.DESCRIPCION = 'Problemas con el servidor';
+                    $scope.alert();
                 }                
             })
             .error(
             function(){
-                alert("Revise su conexión a internet...");
+                $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
+                $scope.alert();
             });
     }
 	
     $scope.salir = function () {
-		/*borrar datos local*/
-		localStorage.setItem("sIdentificacion", "");
-		localStorage.setItem("sPassword", "");
+	localStorage.setItem("sIdentificacion", "");
+	localStorage.setItem("sPassword", "");
         location.reload();
     }
     
