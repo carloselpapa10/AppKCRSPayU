@@ -134,12 +134,13 @@ app.controller("AppController", function($scope, $http) {
 			document.getElementById("password_L").value="";
 			document.getElementById("password_L").focus();
 			return null;
-		}                
+		}    
+                modal.show(); 
                 $http.get($scope.url.defecto+"kcrs_servidor/login.php?sIdentificacion="+sIdentificacion+"&sPassword="+sPassword)
                 .success(
                 function(response){
                     if(response[0].ERROR == 0){
-                        modal.show();  
+                         
                         $scope.empresa.IDENTIFICACION = response[0].IDENTIFICACION;
                         $scope.empresa.NOMBRE = response[0].NOMBRE;
                         $scope.empresa.DIRECCION = response[0].DIRECCION;
@@ -161,6 +162,7 @@ app.controller("AppController", function($scope, $http) {
                         myNavigator.resetToPage('menu_inicio.html', { animation : 'lift' });
 
                     }else{
+                        modal.hide();
                         $scope.mensaje.DESCRIPCION = 'Identificación y password incorrectos';
                         $scope.alert(); 
                         document.getElementById("password_L").focus();
@@ -169,6 +171,7 @@ app.controller("AppController", function($scope, $http) {
                 })
                 .error(
                 function(error, status){
+                    modal.hide();
                     $scope.mensaje.DESCRIPCION = 'Revise su conexión a internet';
                     $scope.alert(); 
                 });
