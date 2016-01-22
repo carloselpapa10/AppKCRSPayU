@@ -108,8 +108,10 @@ app.controller("AppController", function($scope, $http) {
                 })
                 .error(
                 function(error, status){
-                    //document.getElementById("myImg_srvcio_3").style.visibility = "hidden";
+                    document.getElementById("myImg_srvcio_3").style.visibility = "hidden";
                 });
+	}else{
+		setTimeout(function(){ document.getElementById("myImg_srvcio_3").style.visibility = "hidden"; }, 2000);
 	}
     }
 	
