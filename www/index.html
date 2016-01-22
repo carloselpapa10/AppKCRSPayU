@@ -28,28 +28,36 @@
     <title>KCRS</title>	
     <script src="js/md5-0.9.pack.js" type="text/javascript"></script>
     <script src="js/funciones.js"></script>
+    
+    <script>
+    </script>
 </head>
 
 <body ng-controller="AppController">
     <script src="scripts/index.js"></script>
+    
+<ons-modal var="modal">
+    <ons-icon icon="ion-load-c" spin="true"></ons-icon>
+    <br>
+    <br> Cargando...
+    <br> Espere por favor.
+</ons-modal>
 
 <ons-navigator var="myNavigator" id="login.html">
-    <ons-page>
+    <ons-page id="my-page">
         <ons-toolbar>
-            <div class="center"><b>KCRS</b></div>
+            <div class="center"><b>KCRS</b><img id="myImg_srvcio_3" src="img/preloader-01.gif" align="center" style="visibility: 'visible';"></div>
         </ons-toolbar>
 
         <div class="login-form">
             <input type="text" class="text-input--underbar" placeholder="Cedula o Nit" name="identificacion_L" id="identificacion_L">
             <input type="password" class="text-input--underbar" maxlength="8" placeholder="Password" name="password_L" id="password_L">
             <br><br>
-            <ons-button modifier="large" class="login-button" ng-click="login(myNavigator)">Entrar</ons-button>
+            <ons-button modifier="large" class="login-button" id="show-modal" ng-click="login(myNavigator)">Entrar</ons-button>
             <br><br>
             <ons-button modifier="quiet" class="forgot-password" ng-click="form_registrarse(myNavigator)">Regístrese</ons-button>
             <ons-button modifier="quiet" class="forgot-password" ng-click="form_recordar_password(myNavigator)">Olvidaste el Password?</ons-button>
-
         </div>
-
     </ons-page>
 
 </ons-navigator>
