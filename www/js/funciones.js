@@ -135,7 +135,7 @@ app.controller("AppController", function($scope, $http) {
 			document.getElementById("password_L").focus();
 			return null;
 		}    
-                modal.show(); 
+                //modal.show(); 
                 $http.get($scope.url.defecto+"kcrs_servidor/login.php?sIdentificacion="+sIdentificacion+"&sPassword="+sPassword)
                 .success(
                 function(response){
@@ -158,11 +158,11 @@ app.controller("AppController", function($scope, $http) {
 			localStorage.setItem("sIdentificacion", sIdentificacion);
 			localStorage.setItem("sPassword", sPassword);
                         
-                        modal.hide();
+                        //modal.hide();
                         myNavigator.resetToPage('menu_inicio.html', { animation : 'lift' });
 
                     }else{
-                        modal.hide();
+                        //modal.hide();
                         $scope.mensaje.DESCRIPCION = 'Identificación y password incorrectos';
                         $scope.alert(); 
                         document.getElementById("password_L").focus();
